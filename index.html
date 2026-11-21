@@ -364,7 +364,7 @@ function localData(){
  return {history:Array.isArray(history)?history:[],prefs:prefs&&typeof prefs==='object'?prefs:{}};
 }
 function widgetStats(history){
- const dates=history.map(x=>{const m=String(x.date||'').match(/(\\d{1,2})\\.(\\d{1,2})\\.(\\d{4})/);return m?`${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`:''}).filter(Boolean);
+ const dates=history.map(x=>{const m=String(x.date||'').match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);return m?`${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`:''}).filter(Boolean);
  const set=new Set(dates),today=new Date(),key=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
  const count=dates.filter(x=>x===key(today)).length;
  let streak=0,d=new Date(today);if(!set.has(key(d)))d.setDate(d.getDate()-1);
@@ -381,10 +381,10 @@ $('widgetPair').onclick=async()=>{
  if(!current){$('widgetPairStatus').textContent='Önce Google ile giriş yap.';return}
  if(!/^[A-Za-z0-9]{20,128}$/.test(id)){$('widgetPairStatus').textContent='Widget kimliği geçersiz. Scriptable ekranından aynen kopyala.';return}
  try{
-  const old=widgetId;widgetId=id;
+  widgetId=id;
   await publishWidget(localData().history);
   localStorage.setItem('cadetWidgetViewerId',id);
-  $('widgetPairStatus').textContent='Widget bağlandı! Scriptable widget’ını yenile.';
+  $('widgetPairStatus').textContent='Widget bağlandı ve istatistikler gönderildi. Scriptable’dan yenile.';
  }catch(e){widgetId=localStorage.getItem('cadetWidgetViewerId')||'';$('widgetPairStatus').textContent='Bağlanamadı: '+(e.code||e.message)}
 };
 function normalizedHistory(rows){return rows.filter(x=>x&&typeof x==='object').map(x=>({...x,id:String(x.id||'legacy-'+[x.date,x.mode,x.level,x.ok,x.count].join('-'))}));}
@@ -407,7 +407,7 @@ async function sync(first=false){
    window.dispatchEvent(new Event('cadet-store-ready'));
    initializing=false;
   }
-  status('Bulut yedeği güncel · '+history.length+' çalışma');
+  status('Bulut yedeği güncel · '+history.length+' çalışma'+(widgetId?' · Widget verisi gönderildi':''));
  }catch(err){status('Senkronizasyon başarısız: '+(err.code||err.message)+'. Yerel kayıtlar korunuyor.');}
  finally{busy=false;if(pending){pending=false;sync()}}
 }
