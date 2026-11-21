@@ -219,7 +219,7 @@ body[data-page="play"] .primary-column{width:100%;max-width:800px;margin:auto}
 <section id="play" class="panel hidden"><div class="status"><span id="modeName"></span><span id="roundLabel"></span><span id="scoreLabel"></span></div><div class="progress"><div class="bar" id="bar"></div></div><div class="clockwrap hidden" id="clockWrap"><span id="clock" class="clock">00:00</span><div class="timebar"><div class="timefill" id="timeFill"></div></div></div><div class="game"><h2 id="prompt"></h2><p id="hint"></p><div id="stage"></div><div id="message" class="feedback"></div><div class="actions" id="buttons"></div></div><div class="controls"><button class="secondary" id="quit">← Antrenmanı bitir</button></div></section>
 <section id="result" class="panel hidden"><h1>Çalışma tamamlandı</h1><p id="summary"></p><div class="stats" id="stats"></div><div class="controls"><button class="primary" id="again">Yeniden başla (yeni sorular)</button><button class="secondary" id="back">Ana menü</button></div></section>
 <div class="flight-banner"><span>✈</span><div>Düzenli antrenmanla<br>odak, hafıza ve tepki hızını geliştir.</div></div>
-</div><aside class="right-column"><section class="panel quick-settings"><h2>Hızlı Ayarlar</h2><label class="quick-field">Zorluk Seviyesi <select id="difficulty"><option value="easy">Kolay</option><option value="medium" selected>Orta</option><option value="hard">Zor</option></select></label><label class="quick-field">Gösterim Hızı <select id="speed"><option value="slow">Yavaş</option><option value="normal" selected>Normal</option><option value="fast">Hızlı</option></select></label><label class="quick-field">Tur Sayısı <select id="count"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></label><label class="quick-field quick-toggle">Süreyi Göster <input type="checkbox" id="showClock" checked></label><p class="muted" style="font-size:12px">Hız ayarı karelerin ve sembollerin gösterim temposunu değiştirir. Seçici dikkat süresi zorluk seviyesine bağlıdır.</p><button class="secondary" id="settingsShortcut">Tüm ayarlar ⚙</button><div class="backup-tools" id="cloudPanel"><h3>Bulut senkronizasyonu</h3><p class="muted" id="cloudStatus" role="status">Firebase bağlantısı hazırlanıyor…</p><button type="button" class="primary" id="cloudLogin">Google ile giriş yap</button><button type="button" class="secondary" id="cloudSync" disabled>Şimdi senkronize et</button><button type="button" class="secondary" id="cloudLogout" hidden>Çıkış yap</button><p class="muted" style="font-size:12px">İlk girişte telefonundaki çalışmalar bulutla birleştirilir. İnternet yokken kayıtlar telefonda kalır.</p></div><div class="backup-tools" hidden style="display:none!important" aria-hidden="true"><h3>Kayıt güvenliği</h3><p id="storageStatus" class="muted" role="status">Kayıt sistemi kontrol ediliyor…</p><button type="button" class="secondary" id="verifyStorage">Kaydı test et</button><button type="button" class="secondary" id="downloadBackup">Yedek indir</button><label class="backup-upload">Yedekten geri yükle<input id="uploadBackup" type="file" accept=".json,application/json" /></label><p class="muted" style="font-size:12px">Yedek dosyanı iCloud Drive'a kaydet. Uygulamayı silmeden önce mutlaka yedek al.</p></div></section><section class="panel history-panel" id="historyPanel"><h2>Son Çalışmalarım</h2><p class="muted">Sonuçlar yalnızca bu tarayıcıda saklanır.</p><div id="history"></div><div class="controls"><button class="secondary" id="clear">Hepsini sil</button></div></section></aside></div>
+</div><aside class="right-column"><section class="panel quick-settings"><h2>Hızlı Ayarlar</h2><label class="quick-field">Zorluk Seviyesi <select id="difficulty"><option value="easy">Kolay</option><option value="medium" selected>Orta</option><option value="hard">Zor</option></select></label><label class="quick-field">Gösterim Hızı <select id="speed"><option value="slow">Yavaş</option><option value="normal" selected>Normal</option><option value="fast">Hızlı</option></select></label><label class="quick-field">Tur Sayısı <select id="count"><option value="5">5</option><option value="10" selected>10</option><option value="20">20</option></select></label><label class="quick-field quick-toggle">Süreyi Göster <input type="checkbox" id="showClock" checked></label><p class="muted" style="font-size:12px">Hız ayarı karelerin ve sembollerin gösterim temposunu değiştirir. Seçici dikkat süresi zorluk seviyesine bağlıdır.</p><div class="backup-tools" id="cloudPanel"><h3>Bulut senkronizasyonu</h3><p class="muted" id="cloudStatus" role="status">Firebase bağlantısı hazırlanıyor…</p><button type="button" class="primary" id="cloudLogin">Google ile giriş yap</button><button type="button" class="secondary" id="cloudSync" disabled>Şimdi senkronize et</button><button type="button" class="secondary" id="cloudLogout" hidden>Çıkış yap</button><p class="muted" style="font-size:12px">İlk girişte telefonundaki çalışmalar bulutla birleştirilir. İnternet yokken kayıtlar telefonda kalır.</p></div></section><section class="panel history-panel" id="historyPanel"><h2>Son Çalışmalarım</h2><p class="muted">Sonuçlar yalnızca bu tarayıcıda saklanır.</p><div id="history"></div><div class="controls"><button class="secondary" id="clear">Hepsini sil</button></div></section></aside></div>
 <section class="panel analysis-panel" id="analysisPanel"><h2>Bölüm Bazlı İstatistikler</h2><p class="muted">Her test için kolay, orta ve zor sonuçların ayrı ayrı hesaplanır.</p><div id="analysisRecommendation"></div><div id="analysisGrid" class="analysis-grid"></div></section>
 <p class="foot">Bağımsız antrenman aracıdır; THY veya resmî PACE-A sınavlarıyla bağlantılı değildir. Matematik ve fizik içermez.</p></main></div>
 <script>
@@ -338,47 +338,16 @@ $('goTests').onclick=()=>navigate('tests');
 $('back').onclick=()=>navigate('home');
 $('quit').onclick=()=>navigate('tests');
 navigate('home');
-function savePrefs(){window.cadetStore.setItem('cadetFocusPrefs',JSON.stringify({difficulty:$('difficulty').value,speed:$('speed').value,count:$('count').value,showClock:$('showClock').checked}))}['difficulty','speed','count','showClock'].forEach(id=>$(id).addEventListener('change',savePrefs));try{let pref=JSON.parse(window.cadetStore.getItem('cadetFocusPrefs')||'{}');if(['easy','medium','hard'].includes(pref.difficulty))$('difficulty').value=pref.difficulty;if(['slow','normal','fast'].includes(pref.speed))$('speed').value=pref.speed;if(['5','10','20'].includes(pref.count))$('count').value=pref.count;if(typeof pref.showClock==='boolean')$('showClock').checked=pref.showClock}catch(e){}document.getElementById('settingsShortcut').onclick=()=>navigate('settings');
+function savePrefs(){window.cadetStore.setItem('cadetFocusPrefs',JSON.stringify({difficulty:$('difficulty').value,speed:$('speed').value,count:$('count').value,showClock:$('showClock').checked}))}['difficulty','speed','count','showClock'].forEach(id=>$(id).addEventListener('change',savePrefs));try{let pref=JSON.parse(window.cadetStore.getItem('cadetFocusPrefs')||'{}');if(['easy','medium','hard'].includes(pref.difficulty))$('difficulty').value=pref.difficulty;if(['slow','normal','fast'].includes(pref.speed))$('speed').value=pref.speed;if(['5','10','20'].includes(pref.count))$('count').value=pref.count;if(typeof pref.showClock==='boolean')$('showClock').checked=pref.showClock}catch(e){}
 function restorePrefs(){try{let p=JSON.parse(window.cadetStore.getItem('cadetFocusPrefs')||'{}');if(['easy','medium','hard'].includes(p.difficulty))$('difficulty').value=p.difficulty;if(['slow','normal','fast'].includes(p.speed))$('speed').value=p.speed;if(['5','10','20'].includes(p.count))$('count').value=p.count;if(typeof p.showClock==='boolean')$('showClock').checked=p.showClock}catch(e){}}
 window.addEventListener('cadet-store-ready',()=>{restorePrefs();renderHistory();window.cadetStore.check()});
-$('verifyStorage').onclick=()=>{const k='cadetFocusStorageProbe',v=String(Date.now());const ok=window.cadetStore.setItem(k,v)&&window.cadetStore.getItem(k)===v;window.cadetStore.removeItem(k);alert(ok?'Telefonun yerel kayıt testi başarılı. Tam kapatıp açtıktan sonra geçmişi tekrar kontrol et.':'Kayıt testi başarısız. Yedek indirip sakla.')};
-$('downloadBackup').onclick=()=>{const payload={format:'cadet-focus-backup',version:1,exportedAt:new Date().toISOString(),history:JSON.parse(window.cadetStore.getItem('cadetFocusHistory')||'[]'),prefs:JSON.parse(window.cadetStore.getItem('cadetFocusPrefs')||'{}')};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='cadet-focus-yedek-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),15000)};
-$('uploadBackup').onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(data.format!=='cadet-focus-backup'||!Array.isArray(data.history)||!data.prefs||typeof data.prefs!=='object')throw Error('Bu dosya Cadet Focus Lab yedeği değil');if(!confirm('Yedekteki '+data.history.length+' çalışma mevcut kayıtların yerine yüklensin mi?'))return;const a=window.cadetStore.setItem('cadetFocusHistory',JSON.stringify(data.history)),b=window.cadetStore.setItem('cadetFocusPrefs',JSON.stringify(data.prefs));if(!a||!b)throw Error('Telefon depolamasına yazılamadı');restorePrefs();renderHistory();alert('Yedek geri yüklendi.')}catch(err){alert('Yedek yüklenemedi: '+err.message)}finally{e.target.value=''}};
 window.cadetStore.check();})();
 </script><script>
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 }
 </script>
-<style>
-#widgetExportBtn{background:#9c214c;color:white;border:0;border-radius:12px;padding:12px 16px;font-weight:700;margin:12px 0;cursor:pointer}
-</style>
-<script>
-function exportWidgetData(){
- let h=[];try{h=JSON.parse(localStorage.getItem('cadetFocusHistory')||'[]');if(!Array.isArray(h))h=[]}catch(e){}
- const today=new Date().toLocaleDateString('tr-TR');
- const dates=[...new Set(h.map(x=>(x.date||'').split(' ')[0]))];
- let streak=0;
- for(let d=new Date(),i=0;i<365;i++,d.setDate(d.getDate()-1)){
-  if(dates.includes(d.toLocaleDateString('tr-TR')))streak++;
-  else if(i>0||dates.length===0)break;
- }
- const data={today:h.filter(x=>(x.date||'').split(' ')[0]===today).length,goal:3,streak,total:h.length,updated:new Date().toLocaleString('tr-TR')};
- const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
- const url=URL.createObjectURL(blob);
- const a=document.createElement('a');a.href=url;a.download='cadet-widget.json';document.body.appendChild(a);a.click();a.remove();
- setTimeout(()=>URL.revokeObjectURL(url),5000);
-}
-document.addEventListener('DOMContentLoaded',()=>{
- const stats=document.querySelector('#analysisPanel')||document.querySelector('#history');
- if(stats){
-  const btn=document.createElement('button');
-  btn.id='widgetExportBtn';btn.textContent='📱 Widget verilerini indir';
-  btn.addEventListener('click',exportWidgetData);
-  stats.parentElement.insertBefore(btn,stats);
- }
-});
-</script>
+
 <script type="module">
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
 import {getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut,setPersistence,browserLocalPersistence} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
